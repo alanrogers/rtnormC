@@ -35,24 +35,17 @@
 
 #include <gsl/gsl_rng.h>
 
-typedef struct Pair Pair;
-
-struct Pair {
-    double first, second;
-};
-
 // Compute y_l from y_k
 double yl(int k);
 
 // Rejection algorithm with a truncated exponential proposal
 double rtexp(gsl_rng *gen, double a, double b);
 
-// Pseudorandom numbers from a truncated Gaussian distribution
-// The Gaussian has parameters mu (default 0) and sigma (default 1)
-// and is truncated on the interval [a,b].
-// Returns the random variable x and its probability p(x).
-Pair rtnorm (gsl_rng *gen, double a, double b, const double mu,
-             const double sigma);
+// Pseudorandom numbers from a truncated Gaussian distribution The
+// Gaussian has parameters mu (default 0) and sigma (default 1) and is
+// truncated on the interval [a,b].  Returns the random variate x.
+double rtnorm (gsl_rng *gen, double a, double b, const double mu,
+               const double sigma);
 
 
 #endif //__RTNORM_H

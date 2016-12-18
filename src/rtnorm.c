@@ -1,5 +1,9 @@
 //  Pseudorandom numbers from a truncated Gaussian distribution.
 //
+// This code was translated by Alan R. Rogers into C, based on the C++
+// original written by G. Dolle and V Mazet, which is available at 
+// http://miv.u-strasbg.fr/mazet/rtnorm/rtnormCpp.zip
+//
 //  This implements an extension of Chopin's algorithm detailed in
 //  N. Chopin, "Fast simulation of truncated Gaussian distributions",
 //  Stat Comput (2011) 21:275-288
@@ -42,7 +46,7 @@ int         N = 4001;           // Index of the right tail
 // The Gaussian has parameters mu (default 0) and sigma (default 1)
 // and is truncated on the interval [a,b].
 // Returns the random variable x and its probability p(x).
-Pair rtnorm(gsl_rng * gen,
+double rtnorm(gsl_rng * gen,
             double a, double b, const double mu, const double sigma) {
     // Design variables
     double      xmin = -2.00443204036;  // Left bound
@@ -53,10 +57,8 @@ Pair rtnorm(gsl_rng * gen,
     double      ALPHA = 1.837877066409345;  // = log(2*pi)
     int         xsize = sizeof(x) / sizeof(double); // Length of table x
     int         stop = false;
-    double      sq2 = 7.071067811865475e-1; // = 1/sqrt(2)
-    double      sqpi = 1.772453850905516;   // = sqrt(pi)
 
-    double      r, z, e, ylk, simy, lbound, u, d, sim, Z, p;
+    double      r, z, e, ylk, simy, lbound, u, d, sim;
     int         i, ka, kb, k;
 
     // Scaling
@@ -74,7 +76,7 @@ Pair rtnorm(gsl_rng * gen,
 
     // Check if |a| < |b|
     else if(fabs(a) > fabs(b))
-        r = -rtnorm(gen, -b, -a, mu, sigma).first; // Pair (r,p)
+        r = -rtnorm(gen, -b, -a, mu, sigma);
 
     // If a in the right tail (a > xmax), use rejection algorithm with
     // a truncated exponential proposal   
@@ -170,17 +172,7 @@ Pair rtnorm(gsl_rng * gen,
     if(mu != 0 || sigma != 1)
         r = r * sigma + mu;
 
-    // Compute the probability
-    Z = sqpi * sq2 * sigma * (gsl_sf_erf(b * sq2) - gsl_sf_erf(a * sq2));
-    double v = (r - mu) / sigma;
-    p = exp(-v*v/2) / Z;
-
-    Pair pair = {
-        .first = r,
-        .second = p
-    };
-
-    return pair;
+    return r;
 }
 
 // Compute y_l from y_k

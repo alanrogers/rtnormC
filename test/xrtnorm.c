@@ -1,6 +1,8 @@
 //  Example for using rtnorm
 //
-//  Translated from C++ to C by Alan R. Rogers
+// This code was translated by Alan R. Rogers into C, based on the C++
+// original written by G. Dolle and V. Mazet, which is available at
+// http://miv.u-strasbg.fr/mazet/rtnorm/rtnormCpp.zip
 //  
 //  Copyright (C) 2012 Guillaume Dollé, Vincent Mazet (LSIIT,
 //  CNRS/Université de Strasbourg)  
@@ -21,7 +23,7 @@ int main(void) {
     double      b = 9;          // Right bound
     double      mu = 2;         // Mean
     double      sigma = 3;      // Standard deviation
-    Pair        s;              // Output argument of rtnorm
+    double      x;              // Output of rtnorm
     int         K = 1e5;        // Number of random variables to generate
 
     //--- GSL random init ---
@@ -32,8 +34,8 @@ int main(void) {
     printf("underlying distribution: Normal(%lf, %lf)\n", mu, sigma);
     printf("truncated interval: [%lf, %lf]\n", a, b);
     for(int k = 0; k < K; k++) {
-        s = rtnorm(rng, a, b, mu, sigma);
-        printf("%lf %lf\n", s.first, s.second);
+        x = rtnorm(rng, a, b, mu, sigma);
+        printf("%lf\n", x);
     }
 
     gsl_rng_free(rng);
