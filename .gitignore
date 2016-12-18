@@ -1,0 +1,6 @@
+*.o
+*~
+try.c
+core
+depend
+xrtnorm
