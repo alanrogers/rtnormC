@@ -51,13 +51,8 @@ double rtexp(gsl_rng *gen, double a, double b);
 // The Gaussian has parameters mu (default 0) and sigma (default 1)
 // and is truncated on the interval [a,b].
 // Returns the random variable x and its probability p(x).
-Pair rtnorm (
-    gsl_rng *gen,
-    double a,
-    double b,
-    const double mu=0,
-    const double sigma=1
-);
+Pair rtnorm (gsl_rng *gen, double a, double b, const double mu,
+             const double sigma);
 
 
 #endif //__RTNORM_H

@@ -74,7 +74,7 @@ Pair rtnorm(gsl_rng * gen,
 
     // Check if |a| < |b|
     else if(fabs(a) > fabs(b))
-        r = -rtnorm(gen, -b, -a).first; // Pair (r,p)
+        r = -rtnorm(gen, -b, -a, mu, sigma).first; // Pair (r,p)
 
     // If a in the right tail (a > xmax), use rejection algorithm with
     // a truncated exponential proposal   
@@ -94,11 +94,11 @@ Pair rtnorm(gsl_rng * gen,
     else {
         // Compute ka
         i = I0 + floor(a * INVH);
-        ka = Rtnorm::ncell[i];
+        ka = ncell[i];
 
         // Compute kb
         (b >= xmax) ?
-            kb = N : (i = I0 + floor(b * INVH), kb = Rtnorm::ncell[i]
+            kb = N : (i = I0 + floor(b * INVH), kb = ncell[i]
             );
 
         // If |b-a| is small, use rejection algorithm with a truncated
