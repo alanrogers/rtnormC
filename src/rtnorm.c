@@ -194,16 +194,14 @@ double yl(int k) {
 }
 
 // Rejection algorithm with a truncated exponential proposal
-double rtexp(gsl_rng * gen, double a, double b) {
-    int         stop = false;
+double rtexp(gsl_rng * rng, double a, double b) {
     double      twoasq = 2*a*a;
     double      expab = expm1(-a * (b - a));
     double      z, e;
 
-    while(!stop) {
-        z = log(1 + gsl_rng_uniform(gen) * expab);
-        e = -log(gsl_rng_uniform(gen));
-        stop = (twoasq * e > z*z);
-    }
-    return a - z / a;
+    do{
+        z = log(1 + gsl_rng_uniform(rng) * expab);
+        e = -log(gsl_rng_uniform(rng));
+    }while(twoasq*e <= z*z);
+    return a - z/a;
 }
