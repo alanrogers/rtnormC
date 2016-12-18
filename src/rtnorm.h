@@ -30,7 +30,7 @@
 //  OS: Unix based system
 
 
-#ifndef __RTNORNM_H
+#ifndef __RTNORM_H
 #define __RTNORM_H
 
 #include <gsl/gsl_rng.h>
