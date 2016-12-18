@@ -76,7 +76,7 @@ double rtnorm(gsl_rng * gen,
 
     // Check if |a| < |b|
     else if(fabs(a) > fabs(b))
-        r = -rtnorm(gen, -b, -a, mu, sigma);
+        r = -rtnorm(gen, -b, -a, 0.0, 1.0);
 
     // If a in the right tail (a > xmax), use rejection algorithm with
     // a truncated exponential proposal   
