@@ -87,7 +87,7 @@ double rtnorm(gsl_rng * gen,
     // a Gaussian proposal 
     else if(a < xmin) {
         while(!stop) {
-            r = gsl_ran_gaussian(gen, 1);
+            r = gsl_ran_gaussian_ziggurat(gen, 1);
             stop = (r >= a) && (r <= b);
         }
     }
